@@ -105,14 +105,14 @@ RUN sudo apt-get update -qq && sudo apt-get install -qq -y --no-install-recommen
         pulseaudio \
         socat \
     && gem install bundler \
-    && rm -rf /var/lib/apt/lists/*;
+    && sudo rm -rf /var/lib/apt/lists/*;
 
-# install nodejs and yarn packages from nodesource
-RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
-    && apt-get update -qq \
-    && apt-get install -qq -y --no-install-recommends nodejs \
-    && npm i -g yarn \
-    && rm -rf /var/lib/apt/lists/*
+# # install nodejs and yarn packages from nodesource
+# RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
+#     && apt-get update -qq \
+#     && apt-get install -qq -y --no-install-recommends nodejs \
+#     && npm i -g yarn \
+#     && rm -rf /var/lib/apt/lists/*
 
  # download and install buck using the java11 pex from Jitpack
  RUN curl -L https://jitpack.io/com/github/facebook/buck/v${BUCK_VERSION}/buck-v${BUCK_VERSION}-java11.pex -o /tmp/buck.pex \
