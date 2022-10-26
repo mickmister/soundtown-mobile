@@ -116,8 +116,8 @@ RUN sudo apt-get update -qq && sudo apt-get install -qq -y --no-install-recommen
 
  # download and install buck using the java11 pex from Jitpack
 RUN curl -L https://jitpack.io/com/github/facebook/buck/v${BUCK_VERSION}/buck-v${BUCK_VERSION}-java11.pex -o /tmp/buck.pex
-RUN mv /tmp/buck.pex /usr/local/bin/buck
-RUN chmod +x /usr/local/bin/buck
+RUN sudo mv /tmp/buck.pex /usr/local/bin/buck
+RUN sudo chmod +x /usr/local/bin/buck
 
 # Full reference at https://dl.google.com/android/repository/repository2-1.xml
 # download and unpack android
