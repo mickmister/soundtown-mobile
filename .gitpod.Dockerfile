@@ -123,7 +123,7 @@ RUN curl -L https://jitpack.io/com/github/facebook/buck/v${BUCK_VERSION}/buck-v$
 # download and unpack android
 # workaround buck clang version detection by symlinking
 RUN curl -sS https://dl.google.com/android/repository/${SDK_VERSION} -o /tmp/sdk.zip \
-    && studio mkdir -p ${ANDROID_HOME}/cmdline-tools \
+    && sudo mkdir -p ${ANDROID_HOME}/cmdline-tools \
     && sudo unzip -q -d ${ANDROID_HOME}/cmdline-tools /tmp/sdk.zip \
     && sudo mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest \
     && sudo rm /tmp/sdk.zip \
