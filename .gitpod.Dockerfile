@@ -126,7 +126,8 @@ RUN curl -sS https://dl.google.com/android/repository/${SDK_VERSION} -o /tmp/sdk
     && sudo mkdir -p ${ANDROID_HOME}/cmdline-tools \
     && sudo unzip -q -d ${ANDROID_HOME}/cmdline-tools /tmp/sdk.zip \
     && sudo mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest \
-    && sudo rm /tmp/sdk.zip \
+    && sudo rm /tmp/sdk.zip
+    # \ 
     # && yes | sudo sdkmanager --licenses \
     # && yes | sudo sdkmanager "platform-tools" \
     #     "emulator" \
