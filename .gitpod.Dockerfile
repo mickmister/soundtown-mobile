@@ -115,20 +115,20 @@ RUN sudo apt-get update -qq && sudo apt-get install -qq -y --no-install-recommen
 #     && rm -rf /var/lib/apt/lists/*
 
  # download and install buck using the java11 pex from Jitpack
-RUN curl -L https://jitpack.io/com/github/facebook/buck/v${BUCK_VERSION}/buck-v${BUCK_VERSION}-java11.pex -o /tmp/buck.pex
-RUN sudo mv /tmp/buck.pex /usr/local/bin/buck
-RUN sudo chmod +x /usr/local/bin/buck
+RUN curl -L https://jitpack.io/com/github/facebook/buck/v${BUCK_VERSION}/buck-v${BUCK_VERSION}-java11.pex -o /tmp/buck.pex \
+    && sudo mv /tmp/buck.pex /usr/local/bin/buck \
+    && sudo chmod +x /usr/local/bin/buck
 
 # Full reference at https://dl.google.com/android/repository/repository2-1.xml
 # download and unpack android
 # workaround buck clang version detection by symlinking
 RUN curl -sS https://dl.google.com/android/repository/${SDK_VERSION} -o /tmp/sdk.zip \
-    && mkdir -p ${ANDROID_HOME}/cmdline-tools \
-    && unzip -q -d ${ANDROID_HOME}/cmdline-tools /tmp/sdk.zip \
-    && mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest \
-    && rm /tmp/sdk.zip \
-    && yes | sdkmanager --licenses \
-    && yes | sdkmanager "platform-tools" \
+    && sudp mkdir -p ${ANDROID_HOME}/cmdline-tools \
+    && sudo unzip -q -d ${ANDROID_HOME}/cmdline-tools /tmp/sdk.zip \
+    && sudo mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest \
+    && sudo rm /tmp/sdk.zip \
+    && yes | sudo sdkmanager --licenses \
+    && yes | sudo sdkmanager "platform-tools" \
         "emulator" \
         "platforms;android-$ANDROID_BUILD_VERSION" \
         "build-tools;$ANDROID_TOOLS_VERSION" \
@@ -136,9 +136,9 @@ RUN curl -sS https://dl.google.com/android/repository/${SDK_VERSION} -o /tmp/sdk
         "system-images;android-21;google_apis;armeabi-v7a" \
         "ndk;$NDK_VERSION_BUCK" \
         "ndk;$NDK_VERSION_GRADLE" \
-    && rm -rf ${ANDROID_HOME}/.android \
-    && chmod 777 -R /opt/android \
-    && ln -s ${ANDROID_NDK_BUCK}/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.9 ${ANDROID_NDK_BUCK}/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.8
+    && sudo rm -rf ${ANDROID_HOME}/.android \
+    && sudo chmod 777 -R /opt/android \
+    && sudo ln -s ${ANDROID_NDK_BUCK}/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.9 ${ANDROID_NDK_BUCK}/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.8
 
 
 
