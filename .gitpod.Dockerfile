@@ -127,19 +127,21 @@ RUN curl -sS https://dl.google.com/android/repository/${SDK_VERSION} -o /tmp/sdk
     && sudo unzip -q -d ${ANDROID_HOME}/cmdline-tools /tmp/sdk.zip \
     && sudo mv ${ANDROID_HOME}/cmdline-tools/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest \
     && sudo rm /tmp/sdk.zip
-    # \ 
-    # && yes | sudo sdkmanager --licenses \
-    # && yes | sudo sdkmanager "platform-tools" \
-    #     "emulator" \
-    #     "platforms;android-$ANDROID_BUILD_VERSION" \
-    #     "build-tools;$ANDROID_TOOLS_VERSION" \
-    #     "cmake;$CMAKE_VERSION" \
-    #     "system-images;android-21;google_apis;armeabi-v7a" \
-    #     "ndk;$NDK_VERSION_BUCK" \
-    #     "ndk;$NDK_VERSION_GRADLE" \
-    # && sudo rm -rf ${ANDROID_HOME}/.android \
-    # && sudo chmod 777 -R /opt/android \
-    # && sudo ln -s ${ANDROID_NDK_BUCK}/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.9 ${ANDROID_NDK_BUCK}/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.8
+
+WORKDIR ${ANDROID_HOME}/cmdline-tools/latest/bin
+
+RUN yes | sudo ./sdkmanager --licenses \
+    && yes | sudo ./sdkmanager "platform-tools" \
+        "emulator" \
+        "platforms;android-$ANDROID_BUILD_VERSION" \
+        "build-tools;$ANDROID_TOOLS_VERSION" \
+        "cmake;$CMAKE_VERSION" \
+        "system-images;android-21;google_apis;armeabi-v7a" \
+        "ndk;$NDK_VERSION_BUCK" \
+        "ndk;$NDK_VERSION_GRADLE" \
+    && sudo rm -rf ${ANDROID_HOME}/.android \
+    && sudo chmod 777 -R /opt/android \
+    && sudo ln -s ${ANDROID_NDK_BUCK}/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.9 ${ANDROID_NDK_BUCK}/toolchains/llvm/prebuilt/linux-x86_64/lib64/clang/9.0.8
 
 
 
