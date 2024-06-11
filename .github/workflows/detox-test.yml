@@ -1,0 +1,19 @@
+name: Detox E2E Tests Commit
+
+on:
+  push:
+    branches:    
+      - '**'
+
+jobs:
+
+  run-ios-tests-on-pr:
+    name: iOS Mobile Tests on PR
+    uses: ./.github/workflows/e2e-detox-template.yml
+    # uses: ./.github/workflows/e2e-detox-template.yml
+    with:
+      run-ios-tests: true
+      run-android-tests: false
+      run-type: "PR"
+      MOBILE_VERSION: ${{ github.event.pull_request.head.sha }}
+    secrets: inherit
